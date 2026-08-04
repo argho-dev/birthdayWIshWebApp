@@ -444,7 +444,7 @@ export default function BirthdayFinale() {
       {/* Theatre video — cake.mp4 */}
       {showCakeTheatre && (
         <TheatreVideo
-          src="/cake.mp4"
+          src="/api/storage/public-objects/cake.mp4"
           onClose={() => setShowCakeTheatre(false)}
         />
       )}

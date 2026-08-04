@@ -458,7 +458,7 @@ export default function DailySurprise({ onGoToCake }: { onGoToCake?: () => void 
       {/* Theatre Video — cake.mp4 */}
       {showCakeTheatre && (
         <TheatreVideo
-          src="/cake.mp4"
+          src="/api/storage/public-objects/cake.mp4"
           onClose={() => setShowCakeTheatre(false)}
         />
       )}
