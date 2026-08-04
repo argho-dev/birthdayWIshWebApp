@@ -105,7 +105,7 @@ export default function BearCharacter({ size = 120, mood = 'happy', name, color 
   const handleClick = (e: React.MouseEvent) => {
     setClicked(true);
     spawnFloatingHearts(e.clientX, e.clientY);
-    spawnConfetti(e.clientX / window.innerWidth * 100);
+    spawnConfetti();
     gsap.to(ref.current, { scale: 1.3, duration: 0.2, yoyo: true, repeat: 1 });
     setTimeout(() => setClicked(false), 1000);
   };
