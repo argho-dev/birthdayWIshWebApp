@@ -142,42 +142,56 @@ function Flame({ lit, justBlown, onClick }: FlameProps) {
       style={{
         position: 'relative', display: 'flex', flexDirection: 'column',
         alignItems: 'center', cursor: lit ? 'pointer' : 'default',
-        height: 48, justifyContent: 'flex-end',
       }}
     >
+      {/* Flame glow halo */}
       {lit && (
         <div style={{
-          position: 'absolute', bottom: 4, width: 28, height: 34,
-          borderRadius: '50% 50% 30% 30%',
-          background: 'radial-gradient(ellipse at 50% 70%, rgba(255,200,0,0.35) 0%, transparent 70%)',
-          filter: 'blur(6px)',
+          position: 'absolute', top: -6, width: 36, height: 52,
+          borderRadius: '50%',
+          background: 'radial-gradient(ellipse at 50% 60%, rgba(255,180,0,0.5) 0%, rgba(255,100,0,0.2) 50%, transparent 80%)',
+          filter: 'blur(8px)',
           animation: 'candleFlicker 0.5s ease-in-out infinite alternate',
           pointerEvents: 'none',
         }} />
       )}
+      {/* Outer flame */}
+      {lit && (
+        <div style={{
+          width: 22, height: 44,
+          background: 'radial-gradient(ellipse at 50% 80%, #fff700 0%, #ff9500 45%, #ff4800 80%, transparent 100%)',
+          borderRadius: '50% 50% 35% 35% / 60% 60% 40% 40%',
+          filter: 'drop-shadow(0 0 10px #ffaa00) drop-shadow(0 0 20px #ff6600)',
+          animation: 'candleFlicker 0.45s ease-in-out infinite alternate',
+          marginBottom: -2,
+        }} />
+      )}
+      {/* Inner bright core */}
+      {lit && (
+        <div style={{
+          position: 'absolute', top: 14, width: 10, height: 20,
+          background: 'radial-gradient(ellipse at 50% 70%, #ffffff 0%, #fffde0 60%, transparent 100%)',
+          borderRadius: '50% 50% 35% 35% / 60% 60% 40% 40%',
+          animation: 'candleFlicker 0.38s ease-in-out infinite alternate',
+          pointerEvents: 'none',
+        }} />
+      )}
+      {/* Wick */}
       <div style={{
-        width: 18, height: lit ? 36 : 0,
-        background: lit
-          ? 'radial-gradient(ellipse at 50% 80%, #fff 8%, #ffe566 35%, #ff9900 65%, #ff4400 90%, transparent 100%)'
-          : 'transparent',
-        borderRadius: '50% 50% 30% 30%',
-        filter: lit ? 'drop-shadow(0 0 8px #ffcc00) drop-shadow(0 0 4px #ff8800)' : 'none',
-        animation: lit ? 'candleFlicker 0.45s ease-in-out infinite alternate' : 'none',
-        transition: 'height 0.3s ease, opacity 0.3s ease',
-        opacity: lit ? 1 : 0,
-      }} />
-      <div style={{
-        width: 3, height: 8,
-        background: lit ? '#ffcc44' : '#555',
-        borderRadius: 2, marginTop: -2,
-        boxShadow: lit ? '0 0 4px #ffcc44' : 'none',
+        width: 3, height: 12,
+        background: lit ? 'linear-gradient(to bottom, #888, #333)' : '#555',
+        borderRadius: '2px 2px 0 0',
+        boxShadow: lit ? '0 0 6px rgba(255,200,0,0.6)' : 'none',
         transition: 'background 0.4s',
+        zIndex: 1,
       }} />
+      {/* Smoke when blown */}
       {justBlown && (
         <div style={{
-          position: 'absolute', bottom: 8, width: 6, height: 30,
-          background: 'linear-gradient(to top, rgba(200,200,200,0.5), transparent)',
-          borderRadius: 4, animation: 'smokeRise 1.2s ease-out forwards',
+          position: 'absolute', top: -30, left: '50%', transform: 'translateX(-50%)',
+          width: 4, height: 40,
+          background: 'linear-gradient(to top, rgba(180,180,200,0.7), transparent)',
+          borderRadius: 4, animation: 'smokeRise 1.4s ease-out forwards',
           pointerEvents: 'none',
         }} />
       )}
@@ -185,7 +199,7 @@ function Flame({ lit, justBlown, onClick }: FlameProps) {
   );
 }
 
-// ── Digit with flame ─────────────────────────────────────────────────────────
+// ── Candle with digit ─────────────────────────────────────────────────────────
 interface DigitWithFlameProps {
   flameIndex: number;
   lit: boolean;
@@ -193,37 +207,80 @@ interface DigitWithFlameProps {
   onBlow: (i: number) => void;
 }
 
+const CANDLE_COLORS = [
+  { top: '#ff79c6', mid: '#e8569c', bot: '#c73d84', shine: 'rgba(255,255,255,0.35)' },
+  { top: '#bd93f9', mid: '#9a6fe0', bot: '#7850c8', shine: 'rgba(255,255,255,0.3)' },
+];
+
 function DigitWithFlame({ flameIndex, lit, justBlown, onBlow }: DigitWithFlameProps) {
+  const c = CANDLE_COLORS[flameIndex % CANDLE_COLORS.length];
   return (
     <div style={{
       display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative',
-      opacity: lit ? 1 : 0,
-      transform: lit ? 'scale(1)' : 'scale(0.4)',
       transition: 'opacity 0.5s ease, transform 0.5s ease',
-      pointerEvents: lit ? 'auto' : 'none',
     }}>
+      {/* Flame assembly */}
       <Flame lit={lit} justBlown={justBlown} onClick={() => onBlow(flameIndex)} />
+
+      {/* Candle body */}
       <div style={{
-        fontSize: 'clamp(80px, 18vw, 130px)', fontWeight: 900, lineHeight: 1,
-        background: 'linear-gradient(160deg, #ffe566 0%, #ffaa00 50%, #ff6600 100%)',
-        WebkitBackgroundClip: 'text', backgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        filter: 'drop-shadow(0 0 18px rgba(255,180,0,0.6))',
-        fontFamily: 'Georgia, serif', userSelect: 'none', letterSpacing: '-0.02em',
+        width: 'clamp(38px, 7vw, 52px)',
+        height: 'clamp(90px, 18vw, 130px)',
+        borderRadius: '6px 6px 4px 4px',
+        background: `linear-gradient(to bottom, ${c.top} 0%, ${c.mid} 50%, ${c.bot} 100%)`,
+        boxShadow: lit
+          ? `0 0 18px ${c.top}88, 0 0 36px ${c.top}44, inset 0 0 10px rgba(0,0,0,0.15)`
+          : 'inset 0 0 10px rgba(0,0,0,0.15)',
+        position: 'relative',
+        overflow: 'hidden',
+        transition: 'box-shadow 0.5s ease',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        2
+        {/* Shine streak */}
+        <div style={{
+          position: 'absolute', left: '18%', top: 0, bottom: 0, width: '14%',
+          background: `linear-gradient(to bottom, ${c.shine}, transparent 60%)`,
+          borderRadius: 4,
+          pointerEvents: 'none',
+        }} />
+        {/* Number on candle */}
+        <span style={{
+          fontSize: 'clamp(28px, 5.5vw, 42px)', fontWeight: 900, lineHeight: 1,
+          color: 'rgba(255,255,255,0.92)',
+          textShadow: '0 1px 6px rgba(0,0,0,0.3)',
+          userSelect: 'none',
+          fontFamily: 'Georgia, serif',
+          zIndex: 1,
+        }}>2</span>
+        {/* Drips */}
+        {[25, 55, 75].map((left, i) => (
+          <div key={i} style={{
+            position: 'absolute', top: 0, left: `${left}%`,
+            width: 6, height: `${14 + i * 6}%`,
+            background: `linear-gradient(to bottom, ${c.top}, transparent)`,
+            borderRadius: '0 0 50% 50%',
+            opacity: 0.7,
+          }} />
+        ))}
       </div>
+
+      {/* Candle base */}
+      <div style={{
+        width: 'clamp(46px, 8.5vw, 62px)', height: 10,
+        background: `linear-gradient(to bottom, ${c.mid}, ${c.bot})`,
+        borderRadius: '0 0 8px 8px',
+        boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+      }} />
+
       {/* Sparkle burst when blown */}
       {justBlown && (
         <div style={{
-          position: 'absolute', top: '30%', left: '50%',
+          position: 'absolute', top: '10%', left: '50%',
           transform: 'translate(-50%, -50%)',
-          fontSize: 'clamp(28px, 6vw, 44px)',
+          fontSize: 'clamp(24px, 5vw, 36px)',
           animation: 'bubblePop 0.5s ease forwards',
           pointerEvents: 'none',
-        }}>
-          ✨
-        </div>
+        }}>✨</div>
       )}
     </div>
   );
@@ -470,49 +527,89 @@ export default function BirthdayCake({ onDone }: Props) {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {/* Top tier */}
               <div style={{
-                width: 'clamp(140px, 32vw, 200px)', height: 54,
-                background: 'linear-gradient(to bottom, #ff79c6, #c94fa0)',
-                borderRadius: '10px 10px 0 0', position: 'relative', overflow: 'hidden',
-                boxShadow: '0 0 22px rgba(255,121,198,0.45)',
+                width: 'clamp(150px, 34vw, 210px)', height: 60,
+                background: 'linear-gradient(160deg, #ff9de3 0%, #ff79c6 45%, #e0529a 100%)',
+                borderRadius: '14px 14px 0 0', position: 'relative', overflow: 'hidden',
+                boxShadow: '0 0 28px rgba(255,121,198,0.55), inset 0 1px 0 rgba(255,255,255,0.35)',
               }}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} style={{ position: 'absolute', top: -4, left: `${10 + i * 18}%`, width: '8%', height: 18, background: 'rgba(255,255,255,0.7)', borderRadius: '0 0 50% 50%' }} />
+                {/* Frosting drips */}
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} style={{
+                    position: 'absolute', top: -2, left: `${6 + i * 16}%`,
+                    width: '8%', height: 20,
+                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.4))',
+                    borderRadius: '0 0 50% 50%',
+                  }} />
                 ))}
-                <div style={{ position: 'absolute', bottom: 8, left: 0, right: 0, textAlign: 'center', fontSize: '1rem' }}>🌸 🌸</div>
+                {/* Shine stripe */}
+                <div style={{ position: 'absolute', left: '8%', top: 0, bottom: 0, width: '12%', background: 'linear-gradient(to bottom, rgba(255,255,255,0.25), transparent)', borderRadius: 4 }} />
+                <div style={{ position: 'absolute', bottom: 10, left: 0, right: 0, textAlign: 'center', fontSize: '1.05rem', letterSpacing: '0.06em' }}>🌸 🌸</div>
               </div>
 
               {/* Middle tier */}
               <div style={{
-                width: 'clamp(210px, 48vw, 300px)', height: 66,
-                background: 'linear-gradient(to bottom, #bd93f9, #8b5cf6)',
+                width: 'clamp(220px, 50vw, 315px)', height: 72,
+                background: 'linear-gradient(160deg, #d4aaff 0%, #bd93f9 45%, #9265e0 100%)',
                 position: 'relative', overflow: 'hidden',
-                boxShadow: '0 0 20px rgba(189,147,249,0.38)',
+                boxShadow: '0 0 22px rgba(189,147,249,0.45), inset 0 1px 0 rgba(255,255,255,0.25)',
               }}>
-                {Array.from({ length: 7 }).map((_, i) => (
-                  <div key={i} style={{ position: 'absolute', top: -4, left: `${4 + i * 14}%`, width: '6%', height: 16, background: 'rgba(255,255,255,0.65)', borderRadius: '0 0 50% 50%' }} />
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} style={{
+                    position: 'absolute', top: -2, left: `${3 + i * 13}%`,
+                    width: '6%', height: 18,
+                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0.3))',
+                    borderRadius: '0 0 50% 50%',
+                  }} />
                 ))}
-                <div style={{ position: 'absolute', bottom: 10, left: 0, right: 0, textAlign: 'center', fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', letterSpacing: '0.08em', fontWeight: 600 }}>
+                <div style={{ position: 'absolute', left: '6%', top: 0, bottom: 0, width: '10%', background: 'linear-gradient(to bottom, rgba(255,255,255,0.2), transparent)', borderRadius: 4 }} />
+                {/* Dots row */}
+                {Array.from({ length: 7 }).map((_, i) => (
+                  <div key={i} style={{
+                    position: 'absolute', width: 9, height: 9, borderRadius: '50%',
+                    background: 'rgba(255,255,255,0.55)',
+                    top: 28, left: `${8 + i * 13}%`,
+                    boxShadow: '0 0 4px rgba(255,255,255,0.5)',
+                  }} />
+                ))}
+                <div style={{ position: 'absolute', bottom: 11, left: 0, right: 0, textAlign: 'center', fontSize: '0.82rem', color: 'rgba(255,255,255,0.92)', letterSpacing: '0.09em', fontWeight: 700, textShadow: '0 1px 4px rgba(0,0,0,0.3)' }}>
                   22 years of being amazing ✨
                 </div>
               </div>
 
               {/* Bottom tier */}
               <div style={{
-                width: 'clamp(290px, 66vw, 420px)', height: 80,
-                background: 'linear-gradient(to bottom, #8be9fd, #5bc8e8)',
-                borderRadius: '0 0 14px 14px', position: 'relative', overflow: 'hidden',
-                boxShadow: '0 8px 28px rgba(139,233,253,0.3)',
+                width: 'clamp(300px, 68vw, 435px)', height: 88,
+                background: 'linear-gradient(160deg, #aef3ff 0%, #8be9fd 45%, #52c8e8 100%)',
+                borderRadius: '0 0 18px 18px', position: 'relative', overflow: 'hidden',
+                boxShadow: '0 10px 32px rgba(139,233,253,0.35), inset 0 1px 0 rgba(255,255,255,0.4)',
               }}>
-                {Array.from({ length: 10 }).map((_, i) => (
-                  <div key={i} style={{ position: 'absolute', top: -4, left: `${2 + i * 10}%`, width: '5%', height: 14, background: 'rgba(255,255,255,0.6)', borderRadius: '0 0 50% 50%' }} />
+                {Array.from({ length: 11 }).map((_, i) => (
+                  <div key={i} style={{
+                    position: 'absolute', top: -2, left: `${1 + i * 9.5}%`,
+                    width: '5%', height: 16,
+                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.3))',
+                    borderRadius: '0 0 50% 50%',
+                  }} />
                 ))}
-                {Array.from({ length: 9 }).map((_, i) => (
-                  <div key={i} style={{ position: 'absolute', width: 11, height: 11, borderRadius: '50%', background: 'rgba(255,255,255,0.45)', top: 28 + (i % 2) * 22, left: `${7 + i * 10}%` }} />
+                <div style={{ position: 'absolute', left: '5%', top: 0, bottom: 0, width: '8%', background: 'linear-gradient(to bottom, rgba(255,255,255,0.22), transparent)', borderRadius: 4 }} />
+                {/* Dots two rows */}
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <div key={i} style={{
+                    position: 'absolute', width: 12, height: 12, borderRadius: '50%',
+                    background: 'rgba(255,255,255,0.5)',
+                    top: 30 + (i % 2) * 26, left: `${5 + i * 9.5}%`,
+                    boxShadow: '0 0 5px rgba(255,255,255,0.6)',
+                  }} />
                 ))}
               </div>
 
               {/* Cake board */}
-              <div style={{ width: 'clamp(310px, 72vw, 450px)', height: 14, background: 'linear-gradient(to bottom, #d4a017, #a07800)', borderRadius: 4, boxShadow: '0 4px 14px rgba(0,0,0,0.45)' }} />
+              <div style={{
+                width: 'clamp(320px, 74vw, 465px)', height: 16,
+                background: 'linear-gradient(to bottom, #e8b830, #b88a10)',
+                borderRadius: '0 0 6px 6px',
+                boxShadow: '0 6px 16px rgba(0,0,0,0.5)',
+              }} />
             </div>
           </div>
 
