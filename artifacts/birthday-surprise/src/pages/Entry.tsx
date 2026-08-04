@@ -10,7 +10,7 @@ interface EntryProps {
 export default function Entry({ onContinue }: EntryProps) {
   const [showClock, setShowClock] = useState(false);
   const [showText, setShowText] = useState(false);
-  const [showButton, setShowButton] = useState(false);
+  const [showButton, setShowButton] = useState(true); // show immediately for preview
   const line1Ref = useRef<HTMLDivElement>(null);
   const line2Ref = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);

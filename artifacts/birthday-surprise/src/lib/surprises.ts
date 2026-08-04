@@ -44,11 +44,11 @@ export const SURPRISE_MODULES = [
   'mirrorMirror',
 ];
 
-export const BIRTHDAY = new Date(2026, 2, 31);
+export const BIRTHDAY = new Date(2026, 7, 5); // August 5
 
 export function getBirthdayTarget(): Date {
   const now = new Date();
-  const target = new Date(now.getFullYear(), 2, 31, 0, 0, 0, 0);
+  const target = new Date(now.getFullYear(), 7, 5, 0, 0, 0, 0); // August 5
   if (now >= target) target.setFullYear(target.getFullYear() + 1);
   return target;
 }
@@ -76,19 +76,20 @@ function isForcedBirthday(): boolean {
 export function isBirthday(): boolean {
   if (isForcedBirthday()) return true;
   const now = new Date();
-  return now.getMonth() === 2 && now.getDate() === 31;
+  return now.getMonth() === 7 && now.getDate() === 5; // August 5
 }
 
 export function isBirthdayEve(): boolean {
   const now = new Date();
-  return now.getMonth() === 2 && now.getDate() === 30 && now.getHours() === 23 && now.getMinutes() >= 50;
+  // August 4 at 23:50
+  return now.getMonth() === 7 && now.getDate() === 4 && now.getHours() === 23 && now.getMinutes() >= 50;
 }
 
 export function isBirthdayFinalDay(): boolean {
   if (isForcedBirthday()) return true;
   const now = new Date();
-  // March 31, 2026 at 12:00 AM IST = March 30, 2026 at 18:30 UTC (IST is UTC+5:30)
-  const activationIST = new Date(Date.UTC(2026, 2, 30, 18, 30, 0));
+  // August 5, 2026 at 12:00 AM IST = August 4, 2026 at 18:30 UTC (IST is UTC+5:30)
+  const activationIST = new Date(Date.UTC(2026, 7, 4, 18, 30, 0));
   return now >= activationIST;
 }
 
