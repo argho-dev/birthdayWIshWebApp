@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 
 interface Props {
   onClose: () => void;
+  onVideoEnded?: () => void;
+  src?: string;
 }
 
-export default function TheatreVideo({ onClose }: Props) {
+export default function TheatreVideo({ onClose, onVideoEnded, src = '/birthday_video.mp4' }: Props) {
   const videoRef    = useRef<HTMLVideoElement>(null);
   const overlayRef  = useRef<HTMLDivElement>(null);
   const [visible, setVisible]         = useState(false);
@@ -44,8 +46,14 @@ export default function TheatreVideo({ onClose }: Props) {
     requestAnimationFrame(step);
   }
 
-  const handlePlay      = () => smoothVolume(0.4);
+  const handlePlay = () => smoothVolume(0.4);
+
   const handlePauseOrEnd = () => smoothVolume(1.0);
+
+  const handleEnded = () => {
+    smoothVolume(1.0);
+    onVideoEnded?.();
+  };
 
   const handleClose = () => {
     const video = videoRef.current;
@@ -255,13 +263,13 @@ export default function TheatreVideo({ onClose }: Props) {
       }}>
         <video
           ref={videoRef}
-          src="/birthday_video.mp4"
+          src={src}
           controls
           playsInline
           controlsList="nofullscreen nodownload noremoteplayback"
           onPlay={handlePlay}
           onPause={handlePauseOrEnd}
-          onEnded={handlePauseOrEnd}
+          onEnded={handleEnded}
           style={{
             width: '100%',
             height: '100%',

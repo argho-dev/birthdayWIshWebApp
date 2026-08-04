@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { spawnConfetti } from './ConfettiEffect';
 import TheatreVideo from './TheatreVideo';
+import CakePrompt from './CakePrompt';
 import img1  from '@assets/anwesha1.jpg';
 import img2  from '@assets/anwesha2.jpg';
 import img3  from '@assets/anwesha3.jpg';
@@ -171,8 +172,10 @@ export default function BirthdayFinale() {
   const [phase, setPhase]           = useState<'black' | 'heartbeat' | 'gallery'>('black');
   const [visibleCards, setVisible]  = useState<boolean[]>(Array(6).fill(false));
   const [celebrateCount, setCelebrate] = useState(0);
-  const [showCinematic, setShowCinematic] = useState(false);
-  const [showTheatre, setShowTheatre]     = useState(false);
+  const [showCinematic, setShowCinematic]   = useState(false);
+  const [showTheatre, setShowTheatre]       = useState(false);
+  const [showCakePrompt, setShowCakePrompt] = useState(false);
+  const [showCakeTheatre, setShowCakeTheatre] = useState(false);
 
   const handleCelebrate = useCallback(() => {
     const next = celebrateCount + 1;
@@ -425,9 +428,25 @@ export default function BirthdayFinale() {
         <CinematicIntro onStart={handleCinematicStart} />
       )}
 
-      {/* Theatre video */}
+      {/* Theatre video — birthday_video.mp4 */}
       {showTheatre && (
-        <TheatreVideo onClose={() => setShowTheatre(false)} />
+        <TheatreVideo
+          onClose={() => setShowTheatre(false)}
+          onVideoEnded={() => { setShowTheatre(false); setShowCakePrompt(true); }}
+        />
+      )}
+
+      {/* Cake prompt */}
+      {showCakePrompt && (
+        <CakePrompt onYes={() => { setShowCakePrompt(false); setShowCakeTheatre(true); }} />
+      )}
+
+      {/* Theatre video — cake.mp4 */}
+      {showCakeTheatre && (
+        <TheatreVideo
+          src="/cake.mp4"
+          onClose={() => setShowCakeTheatre(false)}
+        />
       )}
     </div>
   );

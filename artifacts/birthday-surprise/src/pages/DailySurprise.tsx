@@ -5,6 +5,7 @@ import DailyBackground from '../components/DailyBackground';
 import MusicReactLayer from '../components/MusicReactLayer';
 import NightSkyHeart from './NightSkyHeart';
 import TheatreVideo from '../components/TheatreVideo';
+import CakePrompt from '../components/CakePrompt';
 import {
   getCountdownParts,
   getTodayMessages,
@@ -277,7 +278,9 @@ export default function DailySurprise({ onGoToCake }: { onGoToCake?: () => void 
   const [showPopup, setShowPopup]           = useState(false);
   const [popupDismissed, setPopupDismissed] = useState(false);
   const [showNightSky, setShowNightSky]     = useState(false);
-  const [showTheatre, setShowTheatre]       = useState(false);
+  const [showTheatre, setShowTheatre]         = useState(false);
+  const [showCakePrompt, setShowCakePrompt]   = useState(false);
+  const [showCakeTheatre, setShowCakeTheatre] = useState(false);
 
   useEffect(() => {
     if (headerRef.current) {
@@ -439,9 +442,25 @@ export default function DailySurprise({ onGoToCake }: { onGoToCake?: () => void 
         <NightSkyHeart onDismiss={() => setShowNightSky(false)} />
       )}
 
-      {/* Theatre Video overlay */}
+      {/* Theatre Video overlay — birthday_video.mp4 */}
       {showTheatre && (
-        <TheatreVideo onClose={() => setShowTheatre(false)} />
+        <TheatreVideo
+          onClose={() => setShowTheatre(false)}
+          onVideoEnded={() => { setShowTheatre(false); setShowCakePrompt(true); }}
+        />
+      )}
+
+      {/* Cake prompt */}
+      {showCakePrompt && (
+        <CakePrompt onYes={() => { setShowCakePrompt(false); setShowCakeTheatre(true); }} />
+      )}
+
+      {/* Theatre Video — cake.mp4 */}
+      {showCakeTheatre && (
+        <TheatreVideo
+          src="/cake.mp4"
+          onClose={() => setShowCakeTheatre(false)}
+        />
       )}
 
     </div>
