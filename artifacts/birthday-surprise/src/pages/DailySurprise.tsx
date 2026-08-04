@@ -32,7 +32,7 @@ const modules = {
 const MODULE_NAMES: Record<string, string> = {
   fireflies:         '🌟 Magical Fireflies',
   heartGame:         '🎮 Catch the Hearts',
-  loveLetter:        '💌 A Love Letter',
+  loveLetter:        '💌 A Letter',
   floatingBears:     '🐻 Floating Bears',
   emojiRain:         '🌸 Emoji Rain',
   messageWall:       '💝 Hidden Messages',
