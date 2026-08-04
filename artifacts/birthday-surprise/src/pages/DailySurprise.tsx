@@ -357,7 +357,7 @@ export default function DailySurprise({ onGoToCake }: { onGoToCake?: () => void 
             <SurpriseCmp
               message={todayMsgs[0]}
               onReveal={() => { setShowPopup(true); setPopupDismissed(false); }}
-              onScratchDone={onGoToCake}
+              onScratchDone={() => {}}
             />
           </Suspense>
         )}
@@ -439,7 +439,7 @@ export default function DailySurprise({ onGoToCake }: { onGoToCake?: () => void 
 
       {/* Night Sky scene overlay */}
       {showNightSky && (
-        <NightSkyHeart onDismiss={() => setShowNightSky(false)} />
+        <NightSkyHeart onDismiss={() => { setShowNightSky(false); onGoToCake?.(); }} />
       )}
 
       {/* Theatre Video overlay — birthday_video.mp4 */}
