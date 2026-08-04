@@ -56,7 +56,7 @@ export default function AccessGate({ onGranted }: AccessGateProps) {
                   lineHeight: 1.3,
                 }}
               >
-                Are you Anuska?
+                Are you Anwesha?
               </h1>
               <p style={{ color: '#bd93f9', fontSize: '1rem', opacity: 0.8 }}>
                 This experience was made for someone very special.
@@ -109,7 +109,7 @@ function DeniedMessage() {
     <div ref={ref} className="flex flex-col items-center gap-5" style={{ opacity: 0 }}>
       <div style={{ fontSize: '3rem' }}>💛</div>
       <p style={{ color: '#f8f8f2', fontSize: '1.3rem', fontWeight: 600, lineHeight: 1.5 }}>
-        Sorry, this is only made for Anuska 💛
+        Sorry, this is only made for Anwesha 💛
       </p>
       <p style={{ color: '#bd93f9', fontSize: '0.95rem', opacity: 0.7 }}>
         This page is not for you 🌸

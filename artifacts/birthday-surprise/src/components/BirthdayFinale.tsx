@@ -154,7 +154,7 @@ export default function BirthdayFinale() {
               flexShrink: 0,
             }}
           >
-            Happy 22nd Birthday, Anuska 🎀
+            Happy 22nd Birthday, Anwesha 🎀
           </div>
 
           {/* 3×2 polaroid grid — fills remaining height */}

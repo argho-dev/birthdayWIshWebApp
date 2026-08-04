@@ -408,7 +408,7 @@ export default function BirthdayCake({ onDone }: Props) {
               marginBottom: '2.2rem',
             }}
           >
-            Hey Anuska, click me! 🎀
+            Hey Anwesha, click me! 🎀
           </div>
 
           {/* Teddy */}

@@ -84,7 +84,7 @@ export default function NightSkyHeart({ onDismiss }: Props) {
 
     /* ── Load photo & build particle array ─────────────────── */
     const img = new Image();
-    img.src = '/anuska.jpeg';
+    img.src = '/anuska.jpeg'; // photo filename kept as-is
 
     img.onload = () => {
       /* Offscreen canvas for pixel sampling */
@@ -316,7 +316,7 @@ export default function NightSkyHeart({ onDismiss }: Props) {
           marginBottom: '1.5rem',
         }}>
           Every star tonight is for you,<br />
-          <span style={{ color: '#ff79c6' }}>Anuska ✨</span>
+          <span style={{ color: '#ff79c6' }}>Anwesha ✨</span>
         </div>
       </div>
 
