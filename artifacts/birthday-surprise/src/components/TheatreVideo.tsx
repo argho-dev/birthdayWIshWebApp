@@ -6,7 +6,7 @@ interface Props {
   src?: string;
 }
 
-export default function TheatreVideo({ onClose, onVideoEnded, src = '/api/storage/public-objects/birthday_video.mp4' }: Props) {
+export default function TheatreVideo({ onClose, onVideoEnded, src = 'https://res.cloudinary.com/qqjhs4wt/video/upload/v1785875558/story_nois3d.mp4' }: Props) {
   const videoRef    = useRef<HTMLVideoElement>(null);
   const overlayRef  = useRef<HTMLDivElement>(null);
   const [visible, setVisible]         = useState(false);

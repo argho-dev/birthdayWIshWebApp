@@ -444,7 +444,7 @@ export default function BirthdayFinale() {
       {/* Theatre video — cake.mp4 */}
       {showCakeTheatre && (
         <TheatreVideo
-          src="/api/storage/public-objects/cake.mp4"
+          src="https://res.cloudinary.com/qqjhs4wt/video/upload/v1785875669/cake_twxhw6.mp4"
           onClose={() => setShowCakeTheatre(false)}
         />
       )}
