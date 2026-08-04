@@ -1,20 +1,37 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { spawnConfetti } from './ConfettiEffect';
-import img1 from '@assets/image1_1774035362435.jpeg';
-import img2 from '@assets/image2_1774035362433.jpeg';
-import img3 from '@assets/image3_1774035362434.jpeg';
-import img4 from '@assets/image4_1774035362434.jpeg';
-import img5 from '@assets/image5_1774035580673.jpeg';
-import img6 from '@assets/image6_1774035362433.jpeg';
+import img1  from '@assets/anwesha1.jpg';
+import img2  from '@assets/anwesha2.jpg';
+import img3  from '@assets/anwesha3.jpg';
+import img4  from '@assets/anwesha4.jpg';
+import img5  from '@assets/anwesha5.jpg';
+import img6  from '@assets/anwesha6.jpg';
+import img7  from '@assets/anwesha7.jpg';
+import img8  from '@assets/anwesha8.jpg';
+import img9  from '@assets/anwesha9.jpg';
+import img10 from '@assets/anwesha10.jpg';
 
-const POLAROIDS = [
-  { img: img1, msg: 'So glad you exist in this world 🌸', rotate: '-3deg' },
-  { img: img2, msg: 'Your smile lights up every room \uD83C\uDF38', rotate: '2deg' },
-  { img: img3, msg: '22 and absolutely glowing 💫', rotate: '-1.5deg' },
-  { img: img4, msg: 'Wishing you endless happiness \uD83C\uDF82', rotate: '2.5deg' },
-  { img: img5, msg: 'You deserve the whole world and more \uD83C\uDF3A', rotate: '-2deg' },
-  { img: img6, msg: 'Happy 22nd \u2014 stay magical always \uD83D\uDC96', rotate: '1.5deg' },
+const ALL_PHOTOS = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
+
+const CAPTIONS = [
+  'So glad you exist in this world 🌸',
+  'Your smile lights up every room 🌸',
+  '22 and absolutely glowing 💫',
+  'Wishing you endless happiness 🎂',
+  'You deserve the whole world and more 🌺',
+  'Happy Birthday — stay magical always 💖',
 ];
+
+const ROTATIONS = ['-3deg', '2deg', '-1.5deg', '2.5deg', '-2deg', '1.5deg'];
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 export default function BirthdayFinale() {
   const canvasRef  = useRef<HTMLCanvasElement>(null);
@@ -22,6 +39,16 @@ export default function BirthdayFinale() {
   const fwInterval = useRef<ReturnType<typeof setInterval> | null>(null);
   const [phase, setPhase]         = useState<'black' | 'heartbeat' | 'gallery'>('black');
   const [visibleCards, setVisible] = useState<boolean[]>(Array(6).fill(false));
+
+  // Random 6 photos from 10 on every page load
+  const POLAROIDS = useMemo(() => {
+    const picked = shuffle(ALL_PHOTOS).slice(0, 6);
+    return picked.map((img, i) => ({
+      img,
+      msg: CAPTIONS[i],
+      rotate: ROTATIONS[i],
+    }));
+  }, []);
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase('heartbeat'), 800);

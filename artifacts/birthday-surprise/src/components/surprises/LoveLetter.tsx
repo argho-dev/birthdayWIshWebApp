@@ -2,14 +2,18 @@ import { useState, useRef, useLayoutEffect, useEffect, useMemo } from 'react';
 import { gsap } from 'gsap';
 import ParticleImage from './ParticleImage';
 import HeartFormation from '../HeartFormation';
-import img1 from '@assets/image1_1774035362435.jpeg';
-import img2 from '@assets/image2_1774035362433.jpeg';
-import img3 from '@assets/image3_1774035362434.jpeg';
-import img4 from '@assets/image4_1774035362434.jpeg';
-import img5 from '@assets/image5_1774035580673.jpeg';
-import img6 from '@assets/image6_1774035362433.jpeg';
+import img1  from '@assets/anwesha1.jpg';
+import img2  from '@assets/anwesha2.jpg';
+import img3  from '@assets/anwesha3.jpg';
+import img4  from '@assets/anwesha4.jpg';
+import img5  from '@assets/anwesha5.jpg';
+import img6  from '@assets/anwesha6.jpg';
+import img7  from '@assets/anwesha7.jpg';
+import img8  from '@assets/anwesha8.jpg';
+import img9  from '@assets/anwesha9.jpg';
+import img10 from '@assets/anwesha10.jpg';
 
-const HER_PHOTOS = [img1, img2, img3, img4, img5, img6];
+const HER_PHOTOS = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
 
 const KF = `
 @keyframes envelopeBob{0%,100%{transform:translateY(0) rotate(-3deg) scale(1)}50%{transform:translateY(-18px) rotate(4deg) scale(1.06)}}
