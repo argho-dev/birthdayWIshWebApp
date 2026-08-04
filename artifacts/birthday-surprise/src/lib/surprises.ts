@@ -80,6 +80,7 @@ export function isBirthday(): boolean {
 }
 
 export function isBirthdayEve(): boolean {
+  if (isForcedBirthday()) return true;
   const now = new Date();
   // August 4 at 23:50
   return now.getMonth() === 7 && now.getDate() === 4 && now.getHours() === 23 && now.getMinutes() >= 50;

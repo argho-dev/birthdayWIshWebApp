@@ -24,11 +24,13 @@ export default function App() {
   const previewParam = new URLSearchParams(window.location.search).get('preview');
   const initialScreen: Screen = previewParam === 'finale' ? 'finale'
     : previewParam === 'cake' ? 'cake'
+    : previewParam === 'surprise' ? 'surprise'
     : 'gate';
 
   // Persist forceBirthday from URL into localStorage so it survives iframe reloads
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get('forceBirthday') === '1') {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('forceBirthday') === '1' || params.get('preview') === 'surprise') {
       localStorage.setItem('forceBirthday', '1');
     }
   }, []);
