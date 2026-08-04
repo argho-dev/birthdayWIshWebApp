@@ -255,7 +255,7 @@ function MessagePopup({ messages, onClose }: { messages: string[]; onClose: () =
           fontSize: '0.62rem', color: 'rgba(255,255,255,0.22)',
           letterSpacing: '0.04em',
         }}>
-          Come back tomorrow for something new ✦
+          There's something special for you ✦
         </div>
       </div>
     </div>
