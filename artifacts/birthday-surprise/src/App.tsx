@@ -1,16 +1,9 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
-import { isBirthday, isBirthdayEve, isBirthdayFinalDay } from './lib/surprises';
+import { isBirthdayEve, isBirthdayFinalDay } from './lib/surprises';
 import Entry from './pages/Entry';
 import AccessGate from './components/AccessGate';
 import MusicPlayer from './components/MusicPlayer';
 
-const DEV_SCREENS: { label: string; value: Screen }[] = [
-  { label: '🔐 Gate',       value: 'gate' },
-  { label: '✨ Entry',      value: 'entry' },
-  { label: '💌 Surprise',   value: 'surprise' },
-  { label: '🎂 Cake',       value: 'cake' },
-  { label: '🎉 Finale',     value: 'finale' },
-];
 
 const DailySurprise  = lazy(() => import('./pages/DailySurprise'));
 const BirthdayCake   = lazy(() => import('./components/BirthdayCake'));
@@ -29,18 +22,9 @@ function LoadingScreen() {
 }
 
 export default function App() {
-  const params       = new URLSearchParams(window.location.search);
-  const previewParam = params.get('preview');
-  const isDevMode    = previewParam !== null || params.get('dev') === '1';
-  const initialScreen: Screen = previewParam === 'finale' ? 'finale'
-    : previewParam === 'cake' ? 'cake'
-    : previewParam === 'surprise' ? 'surprise'
-    : 'gate';
-
   // Persist forceBirthday from URL into localStorage so it survives iframe reloads
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('forceBirthday') === '1' || params.get('preview') === 'surprise') {
+    if (new URLSearchParams(window.location.search).get('forceBirthday') === '1') {
       localStorage.setItem('forceBirthday', '1');
     }
   }, []);
@@ -49,7 +33,7 @@ export default function App() {
   const isFinalDay = useRef(isBirthdayFinalDay()).current;
   console.log('[App] isFinalDay:', isFinalDay, '| url:', window.location.href);
 
-  const [screen, setScreen] = useState<Screen>(initialScreen);
+  const [screen, setScreen] = useState<Screen>('gate');
   const cakeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleAccessGranted = () => {
@@ -115,44 +99,6 @@ export default function App() {
       )}
 
       {showMusic && <MusicPlayer />}
-
-      {/* Dev nav — only visible when ?preview= or ?dev=1 is in the URL */}
-      {isDevMode && (
-        <div style={{
-          position: 'fixed', bottom: 18, left: '50%', transform: 'translateX(-50%)',
-          zIndex: 9999,
-          display: 'flex', gap: '0.4rem',
-          background: 'rgba(10,8,30,0.88)',
-          border: '1px solid rgba(255,121,198,0.35)',
-          borderRadius: 40,
-          padding: '0.45rem 0.7rem',
-          backdropFilter: 'blur(12px)',
-          boxShadow: '0 4px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(189,147,249,0.1)',
-        }}>
-          {DEV_SCREENS.map(s => (
-            <button
-              key={s.value}
-              onClick={() => setScreen(s.value)}
-              style={{
-                padding: '0.35rem 0.85rem',
-                borderRadius: 24,
-                border: 'none',
-                cursor: 'pointer',
-                fontSize: '0.72rem',
-                fontWeight: 600,
-                letterSpacing: '0.03em',
-                transition: 'background 0.15s, color 0.15s',
-                background: screen === s.value
-                  ? 'linear-gradient(90deg, #ff79c6, #bd93f9)'
-                  : 'rgba(255,255,255,0.06)',
-                color: screen === s.value ? '#fff' : 'rgba(255,255,255,0.55)',
-              }}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
