@@ -100,14 +100,15 @@ export default function NightSkyHeart({ onDismiss }: Props) {
       oCtx.closePath();
       oCtx.clip();
 
-      /* Cover: fill entire heart bounding box, clip handles overflow */
+      /* Cover: fill heart bounding box, anchor to top so face is visible */
       const imgAspect = img.naturalWidth / img.naturalHeight;
       const boxAspect = hW / hH;
       let dW: number, dH: number;
-      if (imgAspect > boxAspect) { dH = hH; dW = dH * imgAspect; }
-      else                       { dW = hW; dH = dW / imgAspect; }
+      if (imgAspect > boxAspect) { dH = hH * 1.15; dW = dH * imgAspect; }
+      else                       { dW = hW * 1.15; dH = dW / imgAspect; }
       const dX = cx - dW / 2;
-      const dY = cy - dH / 2;
+      // Anchor near top of heart so faces aren't cut off
+      const dY = hTop - dH * 0.05;
       oCtx.drawImage(img, dX, dY, dW, dH);
 
       /* Sample pixels — adaptive step so particle count stays reasonable */
@@ -241,10 +242,11 @@ export default function NightSkyHeart({ onDismiss }: Props) {
             const imgAspect = img.naturalWidth / img.naturalHeight;
             const boxAspect = hW / hH;
             let dW: number, dH: number;
-            if (imgAspect > boxAspect) { dH = hH; dW = dH * imgAspect; }
-            else                       { dW = hW; dH = dW / imgAspect; }
+            if (imgAspect > boxAspect) { dH = hH * 1.15; dW = dH * imgAspect; }
+            else                       { dW = hW * 1.15; dH = dW / imgAspect; }
             ctx.globalAlpha = 1;
-            ctx.drawImage(img, cx - dW / 2, cy - dH / 2, dW, dH);
+            // Anchor near top of heart so faces aren't cut off
+            ctx.drawImage(img, cx - dW / 2, hTop - dH * 0.05, dW, dH);
             ctx.restore();
           }
         }
