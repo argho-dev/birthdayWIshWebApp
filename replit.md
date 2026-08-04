@@ -1,44 +1,58 @@
 # Birthday Surprise
 
-A personalized birthday surprise web app built for Anuska. Features daily surprise messages, animations (birthday cake, confetti, starfield, fireflies), a music player, and a cinematic birthday finale.
+A romantic birthday surprise web app built for Anwesha. Features an animated starfield entry gate, daily surprise reveals, music player, scratch-card interactions, a birthday cake, and a cinematic finale sequence.
 
-## Stack
+## Architecture
 
-- **Frontend**: React + Vite + Tailwind CSS (`artifacts/birthday-surprise/`)
-- **Backend**: Express API server (`artifacts/api-server/`)
-- **Monorepo**: pnpm workspace
+This is a **pnpm monorepo** with two runnable services and shared libraries:
 
-## Running the app
+| Package | Path | Purpose |
+|---|---|---|
+| `@workspace/birthday-surprise` | `artifacts/birthday-surprise/` | React + Vite frontend |
+| `@workspace/api-server` | `artifacts/api-server/` | Express API server |
+| `@workspace/db` | `lib/db/` | Drizzle ORM + PostgreSQL schema |
+| `@workspace/api-spec` | `lib/api-spec/` | OpenAPI spec + codegen |
+| `@workspace/api-zod` | `lib/api-zod/` | Generated Zod schemas |
+| `@workspace/api-client-react` | `lib/api-client-react/` | Generated React Query hooks |
 
-The **Birthday Surprise** artifact starts automatically via the managed workflow:
+Photos of Anwesha live in `attached_assets/`.
 
-```
-artifacts/birthday-surprise: web
-```
+## Running the App
 
-To start the API server (if needed):
-```
-artifacts/api-server: API Server
-```
+Both services start automatically via managed workflows:
 
-## Structure
+- **Frontend** — `artifacts/birthday-surprise: web` → served at `/`
+- **API server** — `artifacts/api-server: API Server` → served at `/api`
 
-```
-artifacts/
-  birthday-surprise/   # React/Vite frontend
-    src/
-      pages/           # Entry, DailySurprise, NightSkyHeart
-      components/      # AccessGate, BirthdayCake, BirthdayFinale, MusicPlayer, etc.
-      lib/             # surprises.ts — messages, date logic, surprise modules
-    public/
-      photos/          # Anuska's photos
-      music/           # Background music tracks
-  api-server/          # Express backend
-    src/
-      routes/          # API routes
-      lib/             # Logger and utilities
+To run manually:
+```bash
+# Install dependencies
+pnpm install
+
+# Frontend (dev)
+pnpm --filter @workspace/birthday-surprise run dev
+
+# API server (dev)
+pnpm --filter @workspace/api-server run dev
 ```
 
-## User preferences
+## Environment
 
-- Keep the existing project structure and stack
+| Variable | Source | Notes |
+|---|---|---|
+| `DATABASE_URL` | Auto-provisioned by Replit | PostgreSQL connection string |
+| `SESSION_SECRET` | Replit Secret | Used for session signing |
+| `PORT` | Injected by workflow | Required by both services |
+| `BASE_PATH` | Injected by workflow | Required by the frontend |
+
+## Database
+
+Uses Replit's built-in PostgreSQL via Drizzle ORM. Schema is defined in `lib/db/src/schema/`. To push schema changes:
+
+```bash
+pnpm --filter @workspace/db run push
+```
+
+## User Preferences
+
+- Keep the existing project structure and stack — do not restructure or migrate.
