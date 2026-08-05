@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import Starfield from '../components/Starfield';
 import DailyBackground from '../components/DailyBackground';
 import MusicReactLayer from '../components/MusicReactLayer';
-import NightSkyHeart from './NightSkyHeart';
+import AcrossEveryUniverse from './AcrossEveryUniverse';
 import TheatreVideo from '../components/TheatreVideo';
 import CakePrompt from '../components/CakePrompt';
 import {
@@ -437,9 +437,9 @@ export default function DailySurprise({ onGoToCake }: { onGoToCake?: () => void 
         />
       )}
 
-      {/* Night Sky scene overlay */}
+      {/* Across Every Universe overlay */}
       {showNightSky && (
-        <NightSkyHeart onDismiss={() => { setShowNightSky(false); onGoToCake?.(); }} />
+        <AcrossEveryUniverse onDismiss={() => { setShowNightSky(false); onGoToCake?.(); }} />
       )}
 
       {/* Theatre Video overlay — birthday_video.mp4 */}

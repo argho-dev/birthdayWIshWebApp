@@ -1,0 +1,327 @@
+I want to completely REPLACE my current "Night Sky" page.
+
+Delete the existing Night Sky page completely.
+
+Create a brand new interactive page called:
+
+🌌 Across Every Universe
+
+This should be the most premium page of the entire website.
+
+The user MUST complete this page before they can continue to the next page.
+
+====================================================
+
+CONCEPT
+
+The user has just finished reading the birthday letter.
+
+Now they enter the Multiverse.
+
+The page should feel magical, emotional and mysterious.
+
+Inspired by
+
+• Interstellar
+• Doctor Strange Multiverse
+• Makoto Shinkai
+• Your Name
+• Netflix Interactive Experience
+
+NOT childish.
+
+NOT game-like.
+
+Premium cinematic experience.
+
+====================================================
+
+BACKGROUND
+
+Full screen.
+
+Animated deep space.
+
+Huge colorful nebula.
+
+Millions of tiny stars.
+
+Moving galaxies.
+
+Soft cosmic particles.
+
+Shooting stars every few seconds.
+
+Beautiful volumetric glow.
+
+Slow moving camera.
+
+Subtle parallax effect.
+
+Soft ambient space music.
+
+====================================================
+
+INTRO
+
+When the page opens
+
+Fade from black.
+
+Camera slowly zooms outward into deep space.
+
+A calm male narrator says:
+
+"They say...
+every choice creates another universe.
+
+Some universes never meet.
+
+Some meet for only a moment.
+
+But somewhere...
+
+one universe was always waiting for you."
+
+After narration finishes
+
+Hundreds of glowing universes slowly appear.
+
+====================================================
+
+THE UNIVERSES
+
+Generate approximately 120 floating universes.
+
+Each universe is a beautiful glowing glass sphere.
+
+Every sphere slowly floats independently.
+
+Different sizes.
+
+Different colors.
+
+Soft glow.
+
+Beautiful reflections.
+
+Hover animation
+
+Glow increases
+
+Scale slightly
+
+Tiny particle burst
+
+Soft magical sound
+
+====================================================
+
+CAMERA
+
+The user can
+
+Drag
+
+Rotate
+
+Pan
+
+Zoom
+
+Explore space freely.
+
+Movement must feel smooth and cinematic.
+
+====================================================
+
+CLICKING A UNIVERSE
+
+When a universe is clicked
+
+Camera smoothly flies toward it.
+
+The universe expands.
+
+A beautiful glass modal appears.
+
+Each universe contains
+
+Universe Number
+
+Short alternate timeline
+
+Anime illustration
+
+Examples
+
+Universe 7
+
+"We met...
+but never spoke."
+
+--------------------------------
+
+Universe 18
+
+"We lived in different cities."
+
+--------------------------------
+
+Universe 29
+
+"You graduated before I arrived."
+
+--------------------------------
+
+Universe 41
+
+"We became strangers."
+
+--------------------------------
+
+Universe 52
+
+"We crossed paths...
+without knowing."
+
+--------------------------------
+
+Universe 83
+
+"We laughed together...
+but forgot each other."
+
+Generate many unique emotional alternate timelines.
+
+====================================================
+
+THE SECRET
+
+Only ONE universe is correct.
+
+Do NOT reveal which one.
+
+Randomize it every time the page loads.
+
+Each refresh should choose a different correct universe.
+
+The user should genuinely explore.
+
+====================================================
+
+WHEN THE CORRECT UNIVERSE IS FOUND
+
+Play a magical cinematic animation.
+
+The selected universe begins glowing brighter.
+
+Everything else slowly fades away.
+
+The camera flies inside the universe.
+
+Stars explode into light.
+
+Beautiful particles surround the screen.
+
+Display
+
+❤️
+
+"You found our universe."
+
+Pause.
+
+Display
+
+"Maybe every universe tells a different story...
+
+But I'm grateful ours existed."
+
+Pause.
+
+Display a glowing button
+
+Continue →
+
+====================================================
+
+LOCK
+
+The Continue button must remain disabled until the correct universe is discovered.
+
+The user cannot skip this page.
+
+====================================================
+
+VISUAL EFFECTS
+
+Use
+
+React
+
+Tailwind CSS
+
+Framer Motion
+
+Canvas
+
+Three.js
+
+React Three Fiber
+
+Post Processing
+
+Bloom
+
+Depth of Field
+
+Floating animations
+
+Particles
+
+Galaxy shaders
+
+Smooth camera interpolation
+
+Glass morphism
+
+Premium UI
+
+====================================================
+
+SOUNDS
+
+Hover
+
+Soft magical chime
+
+Click
+
+Cosmic pulse
+
+Correct universe
+
+Beautiful emotional orchestral swell
+
+Background
+
+Soft cinematic space ambience
+
+====================================================
+
+PERFORMANCE
+
+Maintain 60 FPS.
+
+Optimize rendering.
+
+Lazy load objects.
+
+Responsive on desktop and mobile.
+
+====================================================
+
+This page should feel like discovering a hidden universe inside a Netflix interactive movie.
+
+It should become the most memorable part of the birthday website.
