@@ -1,58 +1,33 @@
 # Birthday Surprise
 
-A romantic birthday surprise web app built for Anwesha. Features an animated starfield entry gate, daily surprise reveals, music player, scratch-card interactions, a birthday cake, and a cinematic finale sequence.
+A romantic birthday surprise web app built with React + Vite (frontend) and Express (API server).
 
-## Architecture
+## Project structure
 
-This is a **pnpm monorepo** with two runnable services and shared libraries:
+pnpm monorepo with two services:
 
-| Package | Path | Purpose |
-|---|---|---|
-| `@workspace/birthday-surprise` | `artifacts/birthday-surprise/` | React + Vite frontend |
-| `@workspace/api-server` | `artifacts/api-server/` | Express API server |
-| `@workspace/db` | `lib/db/` | Drizzle ORM + PostgreSQL schema |
-| `@workspace/api-spec` | `lib/api-spec/` | OpenAPI spec + codegen |
-| `@workspace/api-zod` | `lib/api-zod/` | Generated Zod schemas |
-| `@workspace/api-client-react` | `lib/api-client-react/` | Generated React Query hooks |
+| Service | Path | Port | Description |
+|---|---|---|---|
+| Birthday Surprise (frontend) | `artifacts/birthday-surprise/` | 5173 | React + Vite + Tailwind UI |
+| API Server | `artifacts/api-server/` | 8080 | Express API, music upload, object storage |
 
-Photos of Anwesha live in `attached_assets/`.
+Shared libraries live in `lib/` (api-client-react, api-zod, api-spec, db).
 
-## Running the App
+## How to run
 
-Both services start automatically via managed workflows:
+Both services start automatically via configured workflows.
 
-- **Frontend** — `artifacts/birthday-surprise: web` → served at `/`
-- **API server** — `artifacts/api-server: API Server` → served at `/api`
+- **Frontend**: `PORT=5173 BASE_PATH=/ pnpm --filter @workspace/birthday-surprise run dev`
+- **API server**: `PORT=8080 pnpm --filter @workspace/api-server run dev`
 
-To run manually:
-```bash
-# Install dependencies
-pnpm install
+Install dependencies: `pnpm install`
 
-# Frontend (dev)
-pnpm --filter @workspace/birthday-surprise run dev
+## Notes
 
-# API server (dev)
-pnpm --filter @workspace/api-server run dev
-```
+- The API server's object storage routes require `PUBLIC_OBJECT_SEARCH_PATHS` and `PRIVATE_OBJECT_DIR` env vars (Replit Object Storage). These are only needed if the storage/upload features are used.
+- The `lib/db` package requires `DATABASE_URL` — it is not imported by the current API routes so the server starts without it.
+- Music files are served from `artifacts/birthday-surprise/public/music/` and can be uploaded via `POST /api/upload-music`.
 
-## Environment
+## User preferences
 
-| Variable | Source | Notes |
-|---|---|---|
-| `DATABASE_URL` | Auto-provisioned by Replit | PostgreSQL connection string |
-| `SESSION_SECRET` | Replit Secret | Used for session signing |
-| `PORT` | Injected by workflow | Required by both services |
-| `BASE_PATH` | Injected by workflow | Required by the frontend |
-
-## Database
-
-Uses Replit's built-in PostgreSQL via Drizzle ORM. Schema is defined in `lib/db/src/schema/`. To push schema changes:
-
-```bash
-pnpm --filter @workspace/db run push
-```
-
-## User Preferences
-
-- Keep the existing project structure and stack — do not restructure or migrate.
+(Add any preferences here as needed.)
