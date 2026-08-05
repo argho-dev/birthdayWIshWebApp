@@ -222,11 +222,18 @@ export default function MusicPlayer() {
       smoothTo(userVolumeRef.current);
     };
 
-    window.addEventListener('theatre:open',  onOpen  as EventListener);
-    window.addEventListener('theatre:close', onClose as EventListener);
+    const onUniverseOpen = () => { smoothTo(0.20); };
+    const onUniverseClose = () => { smoothTo(userVolumeRef.current); };
+
+    window.addEventListener('theatre:open',   onOpen           as EventListener);
+    window.addEventListener('theatre:close',  onClose          as EventListener);
+    window.addEventListener('universe:open',  onUniverseOpen   as EventListener);
+    window.addEventListener('universe:close', onUniverseClose  as EventListener);
     return () => {
-      window.removeEventListener('theatre:open',  onOpen  as EventListener);
-      window.removeEventListener('theatre:close', onClose as EventListener);
+      window.removeEventListener('theatre:open',   onOpen           as EventListener);
+      window.removeEventListener('theatre:close',  onClose          as EventListener);
+      window.removeEventListener('universe:open',  onUniverseOpen   as EventListener);
+      window.removeEventListener('universe:close', onUniverseClose  as EventListener);
       cancelAnimationFrame(volumeRafRef.current);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
